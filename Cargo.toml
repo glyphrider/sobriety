@@ -1,0 +1,12 @@
+[package]
+name = "sobriety"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "*"
+roman = { git = "https://github.com/glyphrider/roman.rs" }
+yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
+gloo = "*"

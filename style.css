@@ -1,0 +1,35 @@
+body {
+    background-image: url("background.jpg");
+    font-family: "Times New Roman", Times, serif;
+}
+
+.sobriety {
+    margin-top: 48px;
+}
+.sobriety h1 {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.sobriety p {
+    font-size: x-large;
+}
+
+.years {
+    width: 600px;
+    height: 480px;
+    line-height: 540px;
+    background-image: url("image.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 72px;
+    color: black;
+}
+
+.days {
+    width: 600px;
+    height: 60px;
+    text-align: center;
+    font-style: italic;
+}
