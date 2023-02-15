@@ -3,7 +3,7 @@
 ## Requirements
 
 1. Generate a visual representation of a sobriety coin with roman numerals
-2. Display the number of day of continuous sobriety (_how many twenty-four-hourses_)
+2. Display the number of days of continuous sobriety (_how many twenty-four-hourses_)
 
 ## Implementation
 
