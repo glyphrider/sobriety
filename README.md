@@ -13,4 +13,6 @@ I leveraged my own [roman.rs](https://github.com/glyphrider/roman.rs) kata proje
 
 The background _art_ image is my own: a photo taken with my [Pixel 7 Pro](https://store.google.com/product/pixel_7_pro) of a page in my [Amazon Basics notebook](https://smile.amazon.com/gp/product/B01DN8TEA2).
 
-The content, produced by [trunk](https://trunkrs.dev) (specifically `trunk build`), and copied to an Amazon S3 bucket using the aws-cli-v2 (aws s3 sync --delete dist/ s3://_bucket-name_). There is a CloudFront distribution in front of that. I should have some details in here about how that's setup....
+The content is produced by [trunk](https://trunkrs.dev) (specifically `trunk build`). This requires a bit of setup. Firstly install trunk (globally) with `cargo install --locked trunk`, then add the rust wasm target with `rustup target add wasm32-unknown-unknown`. I also needed a wasm-binding which I installed via `cargo install --locked wasm-bindgen-cli`.
+
+Once the dist directory is populated, the files were copied to an Amazon S3 bucket using the aws-cli-v2 (aws s3 sync --delete dist/ s3://_bucket-name_). There is a CloudFront distribution in front of that. I should have some details in here about how that's setup....
