@@ -8,14 +8,17 @@ body {
 }
 .sobriety h1 {
     font-family: "Times New Roman", Times, serif;
+    font-size: 9vw;
+    margin-block-end: 0.25em;
+    margin-block-begin: 0.25em;
 }
 
 .sobriety p {
-    font-size: x-large;
+    font-size: 3vw;
 }
 
 .years {
-    width: 600px;
+    width: 95vw;
     height: 480px;
     line-height: 540px;
     background-image: url("image.png");
@@ -23,13 +26,14 @@ body {
     background-repeat: no-repeat;
     vertical-align: middle;
     text-align: center;
-    font-size: 72px;
+    font-size: 86px;
     color: black;
 }
 
 .days {
-    width: 600px;
-    height: 60px;
+    width: 95vw;
+    margin-block-start: 1em;
     text-align: center;
     font-style: italic;
+    font-size: 3vw;
 }
