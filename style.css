@@ -32,7 +32,7 @@ body {
 
 .days {
     width: 95vw;
-    margin-block-start: 1em;
+    margin-block-start: 1.1em;
     text-align: center;
     font-style: italic;
     font-size: 3vw;
