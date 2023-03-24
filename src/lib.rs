@@ -1,3 +1,6 @@
+// this file contains the root (App) component
+// the remaining components are housed in the components directory
+
 use yew::prelude::*;
 use chrono::{ Local, NaiveDate, NaiveDateTime };
 
