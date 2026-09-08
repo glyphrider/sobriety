@@ -10,3 +10,6 @@ chrono = "*"
 roman = { git = "https://github.com/glyphrider/roman.rs" }
 yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
 gloo = "*"
+
+[dev-dependencies]
+wasm-bindgen-test = "=0.3.77"

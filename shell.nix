@@ -9,6 +9,9 @@ pkgs.mkShell {
     pkgs.openssl
     pkgs.git
     pkgs.cacert
+    pkgs.wasm-pack
+    pkgs.geckodriver
+    pkgs.firefox
   ];
 
   shellHook = ''
