@@ -16,3 +16,27 @@ The background _art_ image is my own: a photo taken with my [Pixel 7 Pro](https:
 The content is produced by [trunk](https://trunkrs.dev) (specifically `trunk build`). This requires a bit of setup. Firstly install trunk (globally) with `cargo install --locked trunk`, then add the rust wasm target with `rustup target add wasm32-unknown-unknown`. I also needed a wasm-binding which I installed via `cargo install --locked wasm-bindgen-cli`.
 
 Once the dist directory is populated, the files were copied to an Amazon S3 bucket using the aws-cli-v2 (aws s3 sync --delete dist/ s3://_bucket-name_). There is a CloudFront distribution in front of that. I should have some details in here about how that's setup....
+
+## Development environment
+
+Rather than installing trunk, the wasm target, and wasm-bindgen-cli by hand, there's a `shell.nix` that provisions all of it (plus the test tooling below). Drop into it with:
+
+```
+nix-shell
+```
+
+From inside the shell, `trunk serve` and `trunk build` work as described above.
+
+## Tests
+
+There are two test suites, since testing rendered components needs a real browser:
+
+- Pure calculation logic (the roman-numeral and day-count math in `src/lib.rs`) is covered by plain unit tests, run with:
+  ```
+  cargo test
+  ```
+- The `Coin` and `ContinuousSobriety` components are covered by rendering them into a headless browser and checking the output, run with:
+  ```
+  wasm-pack test --headless --firefox
+  ```
+  (`shell.nix` includes `wasm-pack`, `geckodriver`, and `firefox` for this.)
