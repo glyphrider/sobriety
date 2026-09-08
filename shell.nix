@@ -12,10 +12,13 @@ pkgs.mkShell {
     pkgs.wasm-pack
     pkgs.geckodriver
     pkgs.firefox
+    pkgs.awscli2
+    pkgs.awsume
   ];
 
   shellHook = ''
     rustup default stable
     rustup target add wasm32-unknown-unknown
+    alias awsume=". awsume"
   '';
 }
