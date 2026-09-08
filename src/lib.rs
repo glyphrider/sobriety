@@ -32,9 +32,17 @@ pub fn render() -> Html {
     // create an interval timer (every 5 seconds) that executes this closure
     // again, cloned_now is *moved* into the closure to avoid lifespan issues
     // somehow, both handles allows us to manipulate and access the same state (magic!)
-    gloo::timers::callback::Interval::new(5000, move || {
-        cloned_now.set(get_now());
-    }).forget();
+    // use_effect_with with a `()` dependency runs this setup exactly once on mount,
+    // rather than on every render (which would leak a new Interval each time `now` changes)
+    use_effect_with_deps(
+        move |_| {
+            let interval = gloo::timers::callback::Interval::new(5000, move || {
+                cloned_now.set(get_now());
+            });
+            move || drop(interval)
+        },
+        (),
+    );
 
     // this is the return: pseudo-html just like React
     // 
