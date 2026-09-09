@@ -77,14 +77,14 @@ Deploys use a dedicated IAM role rather than a long-lived access key, following 
    role_arn = arn:aws:iam::<account-id>:role/sobriety-deploy
    ```
 
-With that in place, `aws s3 sync --delete dist/ s3://sobriety --profile sobriety` (or `awsume sobriety`, available via `shell.nix`) deploys without needing broader account permissions.
+With that in place, `aws s3 sync --delete dist/ s3://sobriety --profile sobriety` (or `awsume sobriety`, available via the flake dev shell) deploys without needing broader account permissions.
 
 ## Development environment
 
-Rather than installing trunk, the wasm target, and wasm-bindgen-cli by hand, there's a `shell.nix` that provisions all of it (plus the test tooling below). Drop into it with:
+Rather than installing trunk, the wasm target, and wasm-bindgen-cli by hand, there's a `flake.nix` that provisions all of it (plus the test tooling below), with `flake.lock` pinning an exact `nixpkgs` revision so the toolchain versions (`wasm-bindgen`, `wasm-bindgen-cli`, `wasm-bindgen-test` in particular — see "Tests" below) stay reproducible. Drop into it with:
 
 ```
-nix-shell
+nix develop
 ```
 
 From inside the shell, `trunk serve` and `trunk build` work as described above.
@@ -101,4 +101,4 @@ There are two test suites, since testing rendered components needs a real browse
   ```
   wasm-pack test --headless --firefox
   ```
-  (`shell.nix` includes `wasm-pack`, `geckodriver`, and `firefox` for this.)
+  (the flake's dev shell includes `wasm-pack`, `geckodriver`, and `firefox` for this.)

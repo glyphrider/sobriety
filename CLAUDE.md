@@ -33,7 +33,7 @@ trunk build
 
 Deployment (manual, not automated in this repo): the contents of `dist/` are synced to an S3 bucket (`aws s3 sync --delete dist/ s3://<bucket-name>`) fronted by CloudFront.
 
-A `shell.nix` is available (`nix-shell`) that provisions all of the above (`rustup` + wasm32 target, `trunk`, `wasm-bindgen-cli`) plus the test toolchain below.
+A `flake.nix` is available (`nix develop`) that provisions all of the above (`rustup` + wasm32 target, `trunk`, `wasm-bindgen-cli`) plus the test toolchain below. `flake.lock` pins the exact `nixpkgs` revision — see the version-pinning note below for why that matters here.
 
 There is no linting configuration beyond the default `cargo` toolchain.
 
@@ -49,9 +49,9 @@ Two separate test paths, because component rendering needs a real DOM:
   ```
   wasm-pack test --headless --firefox
   ```
-  (needs `wasm-pack`, `geckodriver`, and `firefox` — all included in `shell.nix`).
+  (needs `wasm-pack`, `geckodriver`, and `firefox` — all included in the flake's dev shell).
 
-**Version pinning gotcha**: `wasm-bindgen`, `wasm-bindgen-cli` (the CLI binary trunk/wasm-pack invoke), and `wasm-bindgen-test` must all resolve to the *exact same patch version* — a mismatch fails loudly at build/link time (clear error naming the two schema versions), or, if `wasm-bindgen`/`wasm-bindgen-test` merely drift from each other, silently produces "no tests to run!" with zero tests executed and no error. If `cargo update` pulls a newer `wasm-bindgen`/`wasm-bindgen-test` than the `wasm-bindgen-cli` version pinned in `shell.nix` supports, pin it back down with `cargo update -p wasm-bindgen --precise <version>` (matching `wasm-bindgen --version` from the nix shell) and keep `wasm-bindgen-test`'s version equally close to it.
+**Version pinning gotcha**: `wasm-bindgen`, `wasm-bindgen-cli` (the CLI binary trunk/wasm-pack invoke), and `wasm-bindgen-test` must all resolve to the *exact same patch version* — a mismatch fails loudly at build/link time (clear error naming the two schema versions), or, if `wasm-bindgen`/`wasm-bindgen-test` merely drift from each other, silently produces "no tests to run!" with zero tests executed and no error. `flake.lock` pins `nixpkgs` (and thus `wasm-bindgen-cli`'s version) so this doesn't drift on its own, but if `cargo update` pulls a newer `wasm-bindgen`/`wasm-bindgen-test` than the pinned `wasm-bindgen-cli` supports, pin it back down with `cargo update -p wasm-bindgen --precise <version>` (matching `wasm-bindgen --version` from the dev shell) and keep `wasm-bindgen-test`'s version equally close to it.
 
 Component tests must live under `tests/` (integration tests), not as `#[cfg(test)] mod tests` inside `src/` — `wasm-bindgen-test`'s custom harness can't take over a `--lib`/`--bin` unit-test binary, and doing so silently yields "no tests to run!" as well.
 
