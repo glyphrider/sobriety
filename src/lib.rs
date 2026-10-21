@@ -31,7 +31,7 @@ pub fn render() -> Html {
     // put the current time into state, and get back a UseStateHandle
     let now = use_state(|| get_now());
 
-    // here are all the calculations that ultimately product *roman* and *days*
+    // here are all the calculations that ultimately produce *roman* and *days*
     let sober = sober_date();
     let formatted_date = sober.format("%A, %B %e, %Y");
     let roman = roman_years_since(*now, sober);
